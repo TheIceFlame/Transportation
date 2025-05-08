@@ -1,0 +1,25 @@
+<div class="post-module" appHoverToggle>
+  <!-- Thumbnail-->
+  <div class="thumbnail">
+    <div class="date">
+      <div class="day">{{ request.date | date: 'dd' }}</div>
+      <div class="month">{{ request.date | date: 'MMM' }}</div>
+    </div>
+    <div class="img-mask"></div>
+    <img
+      [src]="'https://img.freepik.com/free-vector/autonomous-delivery-van-with-sensors-drone-delivering-parcel-autonomous-courier-driverless-delivery-service-modern-parcel-services-concept_335657-2225.jpg'"
+      alt="Cover"
+      class="cover-img"
+      loading="lazy"
+    />
+  </div>
+
+  <!-- Post Content -->
+  <div class="post-content">
+    <div class="category" [ngClass]="request.status">{{ request.status }}</div>
+    <h1 class="title">New Transport Request Submitted</h1>
+    <p class="description">
+      {{ request.description }}
+    </p>
+  </div>
+</div>

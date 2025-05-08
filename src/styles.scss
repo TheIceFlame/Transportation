@@ -1,1 +1,52 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --white: #fff;
+  --dark: #101010;
+  --orange: #df4418;
+  --dark_transition: 0.4s;
+}
+
+body {
+  margin: 0;
+  background: rgba(223, 68, 24, 0.05);
+}
+
+body {
+  width: 100%;
+  display: block;
+  position: relative;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: var(--white);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8d8d8d;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  filter: brightness(0.8);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--white);
+  border-radius: 10px;
+}
+
+::selection {
+  color: #fff;
+  background: #e75800;
+}
+
+::selection {
+  color: #fff;
+  background: #e75800;
+}
+
+h1, h2, h3, h4, h5, h6, div, p, a, span {
+  font-family: "neulis-sans", sans-serif;
+}

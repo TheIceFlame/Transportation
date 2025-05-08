@@ -1,0 +1,8 @@
+<div class="main-container">
+  <div id="map" style="height: 100%;z-index: -1;"></div>
+
+  <div class="rest-of-the-form">
+    <textarea [(ngModel)]="Description" rows="5" placeholder="{{'Type a Transportation description if you want to ...'}}"></textarea>
+    <button (click)="saveRequest()">{{'Save'}}</button>
+  </div>
+</div>

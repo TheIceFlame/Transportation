@@ -1,0 +1,10 @@
+
+<div class="container">
+  <div class="info">
+    <h1>My Requests</h1>
+  </div>
+  <div class="column">
+    <app-add-request-card [routerLink]="'/Request/New'"></app-add-request-card>
+    <app-request-card *ngFor="let request of savedRequests" [request]="request"></app-request-card>
+  </div>
+</div>
