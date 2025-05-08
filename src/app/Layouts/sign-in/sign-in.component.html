@@ -1,0 +1,77 @@
+<div class="main-container">
+  <div class="bb-stack bb-stack--wrap vh-100">
+    <div class="login-card">
+
+      <div id="kc-header" class="d-none">
+        <div id="kc-header-wrapper">
+        </div>
+      </div>
+
+      <div class="card-body mx-4 pad-custom  center-card">
+        <div class="brand">
+        </div>
+        <header>
+          <h1 id="kc-page-title" class=" login-choose-method-h1"></h1>
+        </header>
+        <div id="kc-content">
+          <div id="kc-content-wrapper">
+            <div class="bb-subtitle bb-block bb-block--lg">
+            </div>
+            <div id="kc-header-wrapper">
+              <h1>Welcome to Transportation Website</h1>
+              <p> Would you enter your user name and your password to login</p>
+            </div>
+
+
+            <div id="kc-form">
+              <div id="kc-form-wrapper">
+
+                <form id="kc-form-login" class="muj-form-login"
+                      action="https://authcorporate.mybiat.tn/auth/realms/biat-corporate/login-actions/authenticate?session_code=1-8Ekz5ExIrlH-BcDj0ehvXF2Z2CzpRNLY5dYLCEnrw&amp;execution=aa799e68-e790-4f98-b62b-1c9788781cc6&amp;client_id=bb-web-client&amp;tab_id=S0Jp_-5X6TU"
+                      method="post" autocomplete="off">
+                  <div class="form-group bb-form-field bb-form-field--md">
+                    <label class="label-style">Username</label>
+                    <input tabindex="1" id="username" class="form-control " name="username" value=""
+                           placeholder="Enter username" type="text" autocomplete="off"
+                           [(ngModel)]="email">
+                  </div>
+                  <div class="form-group bb-form-field bb-form-field--md">
+                    <label class="label-style">Password</label>
+                    <input tabindex="2" id="password" class="form-control " name="password" type="password"
+                           autocomplete="off" placeholder="Enter password"
+                           [(ngModel)]="password">
+                    <img class="icon-eye" id="eye"
+                         src="https://authcorporate.mybiat.tn/auth/resources/15.0.2.0-cr.13.3/login/biat-corporate-muj/img/eye.svg"
+                         onclick="togglePassword('/auth/resources/15.0.2.0-cr.13.3/login/biat-corporate-muj')">
+                  </div>
+                  <div class="form-group bb-form-field bb-form-field--md bb-block bb-block--lg">
+                  </div>
+                  <div class="form-group bb-form-field bb-form-field--md bb-block bb-block--xl  m-0">
+                    <div id="kc-form-buttons" class="bb-button-bar bb-button-bar--reverse login-bar">
+                      <button (click)="login()" tabindex="4" class="bb-button-bar__button btn login-button" name="login" id="kc-login"
+                              type="submit" value="Log in" >
+                        <div id="msg"> Login</div>
+                      </button>
+                      <div>
+                        <div class="forgot-div bb-subtitle bb-block bb-block--md bb-text-align-center--sm-down">
+                          <span><a class="link-orange" tabindex="5" [routerLink]="'/Registration'">You dont have an account ? Click Here</a></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+            <div id="kc-info" class="">
+              <div id="kc-info-wrapper" class="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

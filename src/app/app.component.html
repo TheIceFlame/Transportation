@@ -1,5 +1,14 @@
 <div class="main-container">
   <app-navbar></app-navbar>
+  <div class="toastClassName toast-notification toast-show" *ngIf="isShow">
+    <div class="toast-content">
+      <div class="alert-icon"></div>
+      <div class="toast-message-content">
+        <div class="toast-title">Please check your credentials</div>
+      </div>
+      <div class="close-icon"> <a href="#"></a></div>
+    </div>
+  </div>
   <router-outlet />
 </div>
 

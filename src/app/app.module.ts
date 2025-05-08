@@ -11,6 +11,9 @@ import { RequestCardComponent } from './Layouts/requests/request-card/request-ca
 import { AddRequestCardComponent } from './Layouts/requests/add-request-card/add-request-card.component';
 import { LogoComponent } from './Commun/logo/logo.component';
 import {FormsModule} from '@angular/forms';
+import { SignInComponent } from './Layouts/sign-in/sign-in.component';
+import { ConditionalMenuDirective } from './Directive/conditional-menu.directive';
+import { SignUpComponent } from './Layouts/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import {FormsModule} from '@angular/forms';
     HoverToggleDirective,
     RequestCardComponent,
     AddRequestCardComponent,
-    LogoComponent
+    LogoComponent,
+    SignInComponent,
+    ConditionalMenuDirective,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

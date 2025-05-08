@@ -1,0 +1,97 @@
+.toast-notification {
+  position: fixed;
+  top: 30px;
+  right: 20px;
+  width: 370px;
+  background-color: white;
+  color: #6a6a6a;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+}
+
+.toast-show {
+  animation-name: showtoast;
+  animation-duration: 100s;
+  padding: 24px;
+  z-index: 10;
+}
+
+.toast-content {
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  padding: 0;
+  font-size: 13px;
+  align-items: center;
+}
+
+.alert-icon {
+  background-image: url('https://authcorporate.mybiat.tn/auth/resources/15.0.2.0-cr.13.3/login/biat-corporate-muj/img/Icons_outlined_alert_error.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  padding: 0;
+  margin: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.alert-icon {
+  margin-inline-end: 0.5rem;
+}
+
+.toast-message-content {
+  text-align: left;
+  font-family: Courier, monospace;
+  padding: 0;
+  margin-left: -10px;
+  width: calc(100% - 80px);
+}
+
+.toast-title:has(span) {
+  margin-top: 0;
+}
+
+.toast-title {
+  color: #091C35;
+  font-weight: 500;
+  font-family: Courier, monospace;
+  margin-top: 2px;
+}
+
+.toast-title span {
+  color: #3A495D;
+  font-weight: 400;
+  font-family: Courier, monospace;
+  position: relative;
+  top: 4px;
+}
+
+.close-icon {
+  background-image: url('https://authcorporate.mybiat.tn/auth/resources/15.0.2.0-cr.13.3/login/biat-corporate-muj/img/close.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 19px;
+  height: 19px;
+  cursor: pointer;
+}
+
+
+@keyframes  showtoast {
+  0% {
+    right: -400px;
+    opacity: 1;
+  }
+  1% {
+    right: 10px;
+    opacity: 1;
+  }
+  95% {
+    right: 10px;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,21 +1,32 @@
 <header>
   <div class="logo-wrapper">
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" id="katman_1" x="0px" y="0px" viewBox="0 0 459.42 345.94" style="enable-background:new 0 0 459.42 345.94;" xml:space="preserve">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" id="katman_1"
+         x="0px" y="0px" viewBox="0 0 459.42 345.94" style="enable-background:new 0 0 459.42 345.94;"
+         xml:space="preserve">
 <style type="text/css">
-	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:var(--orange);}
+	.st0 {
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    fill: var(--orange);
+  }
 </style>
-      <path class="st0" d="M337.65,143.19l-107.98,0c-16.43,0-29.76,13.33-29.76,29.76c0,5.62,1.56,10.88,4.27,15.37h-85.41  c-0.69-5.03-1.05-10.16-1.05-15.37c0-61.82,50.13-111.92,111.92-111.92v0h180.63l-72.73,82.19L337.65,143.19z"/>
-      <path class="st0" d="M121.76,202.73l107.98,0c16.43,0,29.76-13.33,29.76-29.76c0-5.62-1.56-10.88-4.27-15.37h85.41  c0.69,5.03,1.05,10.16,1.05,15.37c0,61.82-50.13,111.92-111.92,111.92v0H49.14l72.73-82.19L121.76,202.73z"/>
+      <path class="st0"
+            d="M337.65,143.19l-107.98,0c-16.43,0-29.76,13.33-29.76,29.76c0,5.62,1.56,10.88,4.27,15.37h-85.41  c-0.69-5.03-1.05-10.16-1.05-15.37c0-61.82,50.13-111.92,111.92-111.92v0h180.63l-72.73,82.19L337.65,143.19z"/>
+      <path class="st0"
+            d="M121.76,202.73l107.98,0c16.43,0,29.76-13.33,29.76-29.76c0-5.62-1.56-10.88-4.27-15.37h85.41  c0.69,5.03,1.05,10.16,1.05,15.37c0,61.82-50.13,111.92-111.92,111.92v0H49.14l72.73-82.19L121.76,202.73z"/>
 </svg>
     <div class="logo-wrapper-pseudo"></div>
   </div>
-  <div class="menu-wrapper">
+  <div class="menu-wrapper" appConditionalMenu>
     <div class="menu-toggle menu-title">Menu</div>
-    <a class="menu-child" data-menu="#home" href="#" style="--width: 100px; width: 0px;">My Requests</a>
-<!--    <a class="menu-child" data-menu="#services" href="#" style="&#45;&#45;width: 66px; width: 0px;">Services</a>-->
-<!--    <a class="menu-child" data-menu="#portfolios" href="#" style="&#45;&#45;width: 74px; width: 0px;">Portfolios</a>-->
-<!--    <a class="menu-child" data-menu="#contact" href="#" style="&#45;&#45;width: 64px; width: 0px;">Contact</a>-->
-    <div class="menu-toggle menu-burger"><div class="menu-burger-line"></div></div>
+    <a class="menu-child" data-menu="#home" [routerLink]="'/Request'" style="--width: 100px; width: 0px;">My Requests</a>
+    <a class="menu-child" data-menu="#home" (click)="logout()" style="--width: 100px; width: 0px;">Logout</a>
+    <!--    <a class="menu-child" data-menu="#services" href="#" style="&#45;&#45;width: 66px; width: 0px;">Services</a>-->
+    <!--    <a class="menu-child" data-menu="#portfolios" href="#" style="&#45;&#45;width: 74px; width: 0px;">Portfolios</a>-->
+    <!--    <a class="menu-child" data-menu="#contact" href="#" style="&#45;&#45;width: 64px; width: 0px;">Contact</a>-->
+    <div class="menu-toggle menu-burger">
+      <div class="menu-burger-line"></div>
+    </div>
     <div class="menu-wrapper-pseudo"></div>
   </div>
 </header>
