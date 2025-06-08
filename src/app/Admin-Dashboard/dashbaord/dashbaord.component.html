@@ -1,0 +1,72 @@
+<div class="dashboard-container">
+
+  <div class="stats-grid">
+    <div class="stat-card total">
+      <div class="stat-header">
+        <div class="stat-icon">📊</div>
+      </div>
+      <div class="stat-title">Total Orders</div>
+      <div class="stat-value">{{ orderData.totalOrders }}</div>
+    </div>
+
+    <div class="stat-card pending">
+      <div class="stat-header">
+        <div class="stat-icon">⏳</div>
+      </div>
+      <div class="stat-title">Pending Orders</div>
+      <div class="stat-value">{{ orderData.totalPendingOrders }}</div>
+    </div>
+
+    <div class="stat-card scheduled">
+      <div class="stat-header">
+        <div class="stat-icon">📅</div>
+      </div>
+      <div class="stat-title">Scheduled Orders</div>
+      <div class="stat-value">{{ orderData.totalScheduledOrders }}</div>
+    </div>
+
+    <div class="stat-card confirmed">
+      <div class="stat-header">
+        <div class="stat-icon">✅</div>
+      </div>
+      <div class="stat-title">Confirmed Orders</div>
+      <div class="stat-value">{{ orderData.totalConfirmedOrders }}</div>
+    </div>
+  </div>
+
+  <div class="charts-section">
+    <div class="charts-grid">
+      <div class="chart-container">
+        <h2 class="chart-title">Order Status Distribution</h2>
+        <div class="chart-wrapper">
+          <canvas id="statusChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <h2 class="chart-title">Top Merchants</h2>
+        <div class="chart-wrapper">
+          <canvas id="merchantChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-section">
+      <h2 class="chart-title">Performance Summary</h2>
+      <div class="summary-grid">
+        <div class="summary-item completion">
+          <h3>Completion Rate</h3>
+          <div class="value">{{ completionRate }}%</div>
+        </div>
+        <div class="summary-item pending-rate">
+          <h3>Pending Rate</h3>
+          <div class="value">{{ pendingRate }}%</div>
+        </div>
+        <div class="summary-item merchants">
+          <h3>Active Merchants</h3>
+          <div class="value">{{ activeMerchants }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="request-container">
+  <!-- Header -->
+  <div class="header-section">
+    <div class="header-content">
+      <h2 class="page-title">Pending Orders Management</h2>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="content-area">
+    <div class="content-wrapper">
+      <div class="flex flex-col gap-8 t0">
+
+        <!-- Standard HTML Table -->
+        <div class="table-container">
+          <div class="table-content">
+            <table class="professional-table">
+              <thead>
+              <tr>
+                <th>Reference</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Weight</th>
+                <th>Dimensions</th>
+                <th>Requires Refrigeration</th>
+                <th>Status</th>
+                <th>Payment Method</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let element of paginatedUsers.Orders">
+                <td>{{ element.reference }}</td>
+                <td>{{ element.name }}</td>
+                <td>{{ element.description }}</td>
+                <td>{{ element.weight }}</td>
+                <td>{{ element.dimensions }}</td>
+                <td>
+                  <span  class="refrigeration-indicator refrigeration-yes"  *ngIf="element.requiresRefrigeration">Yes</span>
+                  <span  class="refrigeration-indicator refrigeration-no" *ngIf="!element.requiresRefrigeration">No</span>
+                </td>
+                <td><span class="status-badge status-pending">{{ element.status | string }}</span></td>
+                <td>{{ element.paymentMethod | string }}</td>
+                <td>
+                  <div class="action-buttons">
+                    <div class="action-buttons">
+
+                      <button class="btn btn-view" (click)="confirm(element.id)">✅ confirm</button>
+                      <button class="btn btn-delete" (click)="delete(element.id)">🗑️ Delete</button>
+                      <button class="btn btn-delete" (click)="delete_orders(element.id)">❌ Cancel</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- No Data Row -->
+              <tr *ngIf="paginatedUsers.Orders.length === 0">
+                <td colspan="9">
+                  <div class="no-data-content">
+                    <span class="no-data-icon">📭</span>
+                    <h4>No records found</h4>
+                    <p>There are no items to display at this time.</p>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

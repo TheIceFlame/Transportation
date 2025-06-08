@@ -3,6 +3,10 @@ import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import {db} from '../../services/request-db.service';
 import {Router} from '@angular/router';
+import {UserService} from '../../services/user.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {GlobalVariables} from '../../global-variables';
+import {OrderService} from '../../services/order.service';
 
 @Component({
   selector: 'app-new-request',
@@ -16,13 +20,18 @@ export class NewRequestComponent implements AfterViewInit {
   // @ts-ignore
   private routingControl: L.Routing.Control | null = null;
   Description: string | null = null;
+  Name: string | null = null;
+  Weight: string | null = null;
+  Dimensions: string | null = null;
+  RequiresRefrigeration: string | null = null;
+  PaymentMethod: string | null = null;
   private customIcon = L.icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/8211/8211268.png',
     iconSize: [40, 40],
     iconAnchor: [15, 40]
   });
 
-  constructor(private router:Router) {
+  constructor(private order: OrderService, private router: Router, private user: UserService, private spinner: NgxSpinnerService, private glovar: GlobalVariables) {
   }
 
   private initMap(): void {
@@ -42,9 +51,9 @@ export class NewRequestComponent implements AfterViewInit {
 
   private handleMapClick(e: L.LeafletMouseEvent): void {
     if (!this.startMarker) {
-      this.startMarker = L.marker(e.latlng, { icon: this.customIcon }).addTo(this.map!);
+      this.startMarker = L.marker(e.latlng, {icon: this.customIcon}).addTo(this.map!);
     } else if (!this.endMarker) {
-      this.endMarker = L.marker(e.latlng, { icon: this.customIcon }).addTo(this.map!);
+      this.endMarker = L.marker(e.latlng, {icon: this.customIcon}).addTo(this.map!);
       this.drawRoute(this.startMarker.getLatLng(), this.endMarker.getLatLng());
     } else {
       // Reset everything on third click
@@ -52,7 +61,7 @@ export class NewRequestComponent implements AfterViewInit {
       this.map?.removeLayer(this.endMarker);
       this.routingControl?.remove();
 
-      this.startMarker = L.marker(e.latlng, { icon: this.customIcon }).addTo(this.map!);
+      this.startMarker = L.marker(e.latlng, {icon: this.customIcon}).addTo(this.map!);
       this.endMarker = null;
       this.routingControl = null;
     }
@@ -66,7 +75,7 @@ export class NewRequestComponent implements AfterViewInit {
       addWaypoints: false,
       draggableWaypoints: false,
       show: false,
-      createMarker: (i:any, waypoint:any, n:any) => {
+      createMarker: (i: any, waypoint: any, n: any) => {
         return L.marker(waypoint.latLng, {
           icon: this.customIcon
         });
@@ -82,20 +91,30 @@ export class NewRequestComponent implements AfterViewInit {
     if (this.startMarker && this.endMarker) {
       const start = this.startMarker.getLatLng();
       const end = this.endMarker.getLatLng();
-      const today = new Date().toISOString().split('T')[0]; // → '2025-03-27'
-      await db.requests.add({
-        description: this.Description ?? '',  // Save empty string if null
-        startLat: start.lat,
-        startLng: start.lng,
-        endLat: end.lat,
-        endLng: end.lng,
-        status: 'Requested',
-        date: today
-      });
 
-      alert('Request saved successfully!');
+      this.spinner.show();
 
-      this.router.navigate(['/Request']);
+      try {
+        const userProfile = await this.user.getUserProfile();
+        const payload = {
+          merchantId: userProfile.id,
+          startingDestination: start.lat,
+          endingDestination: end.lat,
+          name: this.Name ?? '',
+          description: this.Description ?? '',
+          weight: this.Weight,
+          dimensions: this.Dimensions,
+          requiresRefrigeration: this.RequiresRefrigeration,
+          paymentMethod: this.PaymentMethod
+        };
+
+        await this.order.create_order(payload);
+        this.router.navigate(['/Request']);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        this.spinner.hide();
+      }
     } else {
       alert('Please place both start and end markers on the map.');
     }

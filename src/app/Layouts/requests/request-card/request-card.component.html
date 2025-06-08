@@ -1,25 +1,93 @@
-<div class="post-module" appHoverToggle>
-  <!-- Thumbnail-->
-  <div class="thumbnail">
-    <div class="date">
-      <div class="day">{{ request.date | date: 'dd' }}</div>
-      <div class="month">{{ request.date | date: 'MMM' }}</div>
+<div class="delivery-card" [ngClass]="'status-' + (item.status || 'unknown').toLowerCase()">
+  <!-- Card Header -->
+  <div class="card-header">
+    <div class="status-badge" [ngClass]="(item.status || 'unknown').toLowerCase()">
+      <i class="status-icon" [ngClass]="{
+            'icon-clock': item.status === 'PENDING',
+            'icon-truck': item.status === 'IN_TRANSIT',
+            'icon-check': item.status === 'DELIVERED',
+            'icon-x': item.status === 'CANCELLED',
+            'icon-question': !item.status
+          }"></i>
+      <span>{{ (item.status || 'UNKNOWN').replace('_', ' ') }}</span>
     </div>
-    <div class="img-mask"></div>
+    <div class="item-id">#{{ item.id }}</div>
+  </div>
+
+  <!-- Card Image -->
+  <div class="card-image">
+    <div class="image-overlay">
+      <div class="payment-badge" [ngClass]="(item.paymentMethod || 'unknown').toLowerCase().replace('_', '-')">
+        <i class="payment-icon" [ngClass]="{
+              'icon-cash': item.paymentMethod === 'ON_DELIVERY',
+              'icon-card': item.paymentMethod === 'PREPAID',
+              'icon-question': !item.paymentMethod
+            }"></i>
+        {{ (item.paymentMethod || 'UNKNOWN').replace('_', ' ') }}
+      </div>
+    </div>
     <img
-      [src]="'https://img.freepik.com/free-vector/autonomous-delivery-van-with-sensors-drone-delivering-parcel-autonomous-courier-driverless-delivery-service-modern-parcel-services-concept_335657-2225.jpg'"
-      alt="Cover"
-      class="cover-img"
+      src="https://img.freepik.com/free-vector/autonomous-delivery-van-with-sensors-drone-delivering-parcel-autonomous-courier-driverless-delivery-service-modern-parcel-services-concept_335657-2225.jpg"
+      alt="Delivery Item"
+      class="delivery-image"
       loading="lazy"
     />
   </div>
 
-  <!-- Post Content -->
-  <div class="post-content">
-    <div class="category" [ngClass]="request.status">{{ request.status }}</div>
-    <h1 class="title">New Transport Request Submitted</h1>
-    <p class="description">
-      {{ request.description }}
-    </p>
+  <!-- Card Content -->
+  <div class="card-content">
+    <div class="item-header">
+      <h3 class="item-name">{{ item.name }}</h3>
+      <div class="merchant-info">
+        <span class="merchant-id">Merchant: {{ item.merchantId }}</span>
+      </div>
+    </div>
+
+    <p class="item-description">{{ item.description || 'No description available' }}</p>
+
+    <!-- Item Details -->
+    <div class="item-details">
+      <div class="detail-row">
+        <div class="detail-item">
+          <i class="icon-package"></i>
+          <div class="detail-content">
+            <span class="detail-label">Dimensions</span>
+            <span class="detail-value">{{ item.dimensions || 'N/A' }}</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <i class="icon-weight"></i>
+          <div class="detail-content">
+            <span class="detail-label">Weight</span>
+            <span class="detail-value">{{ item.weight || 0 }}kg</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <div class="detail-item">
+          <i class="icon-reference"></i>
+          <div class="detail-content">
+            <span class="detail-label">Reference</span>
+            <span class="detail-value">{{ item.reference || 'N/A' }}</span>
+          </div>
+        </div>
+        <div class="detail-item" *ngIf="item.requiresRefrigeration">
+          <i class="icon-snowflake"></i>
+          <div class="detail-content">
+            <span class="detail-label">Special</span>
+            <span class="detail-value">Refrigerated</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Actions -->
+    <div class="card-actions">
+      <button class="btn btn-secondary" (click)="onDelete()" [disabled]="item.status === 'DELIVERED' || item.status === 'CANCELLED'">
+        <i class="icon-x"></i>
+        Cancel
+      </button>
+    </div>
   </div>
 </div>

@@ -1,0 +1,243 @@
+<!-- new-car.component.html -->
+<div class="new-car-container">
+  <!-- Success Message -->
+  <div *ngIf="submitSuccess" class="alert alert-success" [@slideIn]>
+    <i class="fas fa-check-circle"></i>
+    Vehicle successfully added to your fleet!
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="submitError" class="alert alert-error" [@slideIn]>
+    <i class="fas fa-exclamation-triangle"></i>
+    {{ submitError }}
+  </div>
+
+  <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="vehicle-form">
+    <div class="form-grid">
+
+      <!-- Vehicle Basic Info Section -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <i class="fas fa-info-circle"></i>
+          Basic Information
+        </h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name" class="form-label">Vehicle Name</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              class="form-input"
+              [class.error]="isFieldInvalid('name')"
+              placeholder="e.g., Frozen Goods Truck"
+            />
+            <div *ngIf="isFieldInvalid('name')" class="error-message">
+              {{ getFieldError('name') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="vehicleType" class="form-label">Vehicle Type</label>
+            <select
+              id="vehicleType"
+              formControlName="vehicleType"
+              class="form-select"
+              [class.error]="isFieldInvalid('vehicleType')"
+            >
+              <option value="">Select Type</option>
+              <option *ngFor="let type of vehicleTypes" [value]="type.value">
+                {{ type.label }}
+              </option>
+            </select>
+            <div *ngIf="isFieldInvalid('vehicleType')" class="error-message">
+              {{ getFieldError('vehicleType') }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="year" class="form-label">Year</label>
+            <input
+              type="number"
+              id="year"
+              formControlName="year"
+              class="form-input"
+              [class.error]="isFieldInvalid('year')"
+              placeholder="2024"
+              min="1900"
+              [max]="max"
+            />
+            <div *ngIf="isFieldInvalid('year')" class="error-message">
+              {{ getFieldError('year') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="model" class="form-label">Model</label>
+            <input
+              type="text"
+              id="model"
+              formControlName="model"
+              class="form-input"
+              [class.error]="isFieldInvalid('model')"
+              placeholder="Model number or name"
+            />
+            <div *ngIf="isFieldInvalid('model')" class="error-message">
+              {{ getFieldError('model') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Registration Section -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <i class="fas fa-id-card"></i>
+          Registration Details
+        </h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="licensePlate" class="form-label">License Plate</label>
+            <input
+              type="text"
+              id="licensePlate"
+              formControlName="licensePlate"
+              class="form-input"
+              [class.error]="isFieldInvalid('licensePlate')"
+              placeholder="123TUN2024"
+              style="text-transform: uppercase;"
+            />
+            <div *ngIf="isFieldInvalid('licensePlate')" class="error-message">
+              {{ getFieldError('licensePlate') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="vin" class="form-label">VIN Number</label>
+            <input
+              type="text"
+              id="vin"
+              formControlName="vin"
+              class="form-input"
+              [class.error]="isFieldInvalid('vin')"
+              placeholder="VIN101"
+              style="text-transform: uppercase;"
+            />
+            <div *ngIf="isFieldInvalid('vin')" class="error-message">
+              {{ getFieldError('vin') }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="registrationState" class="form-label">Registration State</label>
+            <input
+              type="text"
+              id="registrationState"
+              formControlName="registrationState"
+              class="form-input"
+              [class.error]="isFieldInvalid('registrationState')"
+              placeholder="Tunis"
+            />
+            <div *ngIf="isFieldInvalid('registrationState')" class="error-message">
+              {{ getFieldError('registrationState') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="registrationExpirationMonth" class="form-label">Registration Expiry Month</label>
+            <select
+              id="registrationExpirationMonth"
+              formControlName="registrationExpirationMonth"
+              class="form-select"
+              [class.error]="isFieldInvalid('registrationExpirationMonth')"
+            >
+              <option value="">Select Month</option>
+              <option *ngFor="let month of months" [value]="month.value">
+                {{ month.label }}
+              </option>
+            </select>
+            <div *ngIf="isFieldInvalid('registrationExpirationMonth')" class="error-message">
+              {{ getFieldError('registrationExpirationMonth') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Special Features Section -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <i class="fas fa-cogs"></i>
+          Features & Status
+        </h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="vehicleStatus" class="form-label">Vehicle Status</label>
+            <select
+              id="vehicleStatus"
+              formControlName="vehicleStatus"
+              class="form-select"
+              [class.error]="isFieldInvalid('vehicleStatus')"
+            >
+              <option *ngFor="let status of vehicleStatuses" [value]="status.value">
+                {{ status.label }}
+              </option>
+            </select>
+            <div *ngIf="isFieldInvalid('vehicleStatus')" class="error-message">
+              {{ getFieldError('vehicleStatus') }}
+            </div>
+          </div>
+
+          <div class="form-group checkbox-group" >
+            <label class="checkbox-label">
+              <input
+                type="checkbox"
+                formControlName="hasRefrigeration"
+                class="checkbox-input"
+              />
+              <span class="checkbox-custom"></span>
+              <span class="checkbox-text">
+                <i class="fas fa-snowflake"></i>
+                Has Refrigeration System
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button
+        type="button"
+        (click)="onReset()"
+        class="btn btn-secondary"
+        [disabled]="isSubmitting"
+      >
+        <i class="fas fa-undo"></i>
+        Reset Form
+      </button>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="isSubmitting || vehicleForm.invalid"
+      >
+        <span *ngIf="!isSubmitting">
+          <i class="fas fa-plus"></i>
+          Add Vehicle
+        </span>
+        <span *ngIf="isSubmitting">
+          <i class="fas fa-spinner fa-spin"></i>
+          Adding Vehicle...
+        </span>
+      </button>
+    </div>
+  </form>
+</div>

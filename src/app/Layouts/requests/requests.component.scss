@@ -19,9 +19,10 @@
   box-sizing: border-box;
   float: left;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   row-gap: 25px;
   column-gap: 25px;
+  width: 100%;
 }
 
 .container .column .demo-title {

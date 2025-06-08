@@ -1,8 +1,19 @@
-<div class="main-container">
-  <div id="map" style="height: 100%;z-index: -1;"></div>
+<div class="main-container" >
+  <div id="map" style="height: 100%; z-index: -1;"></div>
 
-  <div class="rest-of-the-form">
-    <textarea [(ngModel)]="Description" rows="5" placeholder="{{'Type a Transportation description if you want to ...'}}"></textarea>
-    <button (click)="saveRequest()">{{'Save'}}</button>
+  <div class="form-container">
+    <textarea [(ngModel)]="Name" placeholder="Order Name" ></textarea>
+    <textarea [(ngModel)]="Description" rows="4" placeholder="Type a Transportation description..."></textarea>
+    <textarea type="text" [(ngModel)]="Weight" placeholder="Weight (e.g., 10.5)" ></textarea>
+    <input type="text" [(ngModel)]="Dimensions" placeholder="Dimensions (e.g., 10x10x10)" />
+    <select [(ngModel)]="PaymentMethod">
+      <option value="ON_DELIVERY">On Delivery</option>
+      <option value="PREPAID">Prepaid</option>
+    </select>
+    <label class="custom-checkbox">
+      <input type="checkbox" [(ngModel)]="RequiresRefrigeration" />
+      <span>Requires Refrigeration</span>
+    </label>
+    <button (click)="saveRequest()">Save</button>
   </div>
 </div>

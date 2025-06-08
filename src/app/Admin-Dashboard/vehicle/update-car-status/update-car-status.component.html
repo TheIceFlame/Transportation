@@ -1,0 +1,70 @@
+<div class="status-update-container">
+  <div class="status-card">
+
+    <!-- Status Selection -->
+    <div class="card-body">
+      <div class="status-selection">
+        <h3 class="selection-title">Select New Status</h3>
+
+        <!-- Radio Button Options -->
+        <div class="status-options">
+          <div
+            *ngFor="let option of statusOptions"
+            class="status-option"
+            [ngClass]="{'selected': selectedStatus === option.value, 'current': currentStatus === option.value}"
+          >
+            <input
+              type="radio"
+              [id]="'status-' + option.value"
+              name="driverStatus"
+              [value]="option.value"
+              [(ngModel)]="selectedStatus"
+              (change)="onStatusChange(option.value)"
+              class="status-radio"
+            >
+            <label [for]="'status-' + option.value" class="status-label-option">
+              <div class="option-content">
+                <span class="option-icon">{{ option.icon }}</span>
+                <span class="option-text">{{ option.label }}</span>
+                <span *ngIf="currentStatus === option.value" class="current-indicator">
+                  (Current)
+                </span>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message Display -->
+      <div *ngIf="message" class="message" [ngClass]="'message-' + messageType">
+        <span class="message-icon">
+          {{ messageType === 'success' ? '✅' : '❌' }}
+        </span>
+        {{ message }}
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="resetStatus()"
+          [disabled]="isLoading || selectedStatus === currentStatus"
+        >
+          Reset
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="changeStatus()"
+          [disabled]="isLoading || selectedStatus === currentStatus"
+        >
+          <span *ngIf="isLoading" class="loading-spinner"></span>
+          <span *ngIf="!isLoading">Update Status</span>
+          <span *ngIf="isLoading">Updating...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

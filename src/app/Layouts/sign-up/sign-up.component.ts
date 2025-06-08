@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
-import {db} from '../../services/request-db.service';
-import {User, user} from '../../services/user-database.service';
 import {Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../services/auth.service';
+import {GlobalVariables} from '../../global-variables';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,63 +11,51 @@ import {Router} from '@angular/router';
   styleUrl: './sign-up.component.scss'
 })
 export class SignUpComponent {
-  phoneNumber = '';
-  address = '';
-  email = ''; // assuming you treat email as username
-  password = '';
-  re_password = '';
-  toggle_vue: boolean = false;
-  toggle_vue_2: boolean = false;
+  signupForm: FormGroup;
   message: string = '';
 
-  constructor(private router:Router) {
+  constructor(private glovar: GlobalVariables,private spinner:NgxSpinnerService,private fb: FormBuilder, private router: Router,private Auth:AuthService) {
+    this.signupForm = this.fb.group({
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      roles: ['MERCHANT', Validators.required] // default value
+    });
   }
 
-  togglePassword() {
-    this.toggle_vue = !this.toggle_vue;
-  }
-
-  togglePassword2() {
-    this.toggle_vue_2 = !this.toggle_vue_2;
-  }
-
-  async register() {
-    if (!this.email || !this.password || !this.re_password || !this.phoneNumber || !this.address) {
-      this.message = 'Please fill in all fields.';
+  async onSignup() {
+    if (this.signupForm.invalid) {
+      this.message = 'Please fill in all fields correctly.';
       return;
     }
 
-    if (this.password !== this.re_password) {
-      this.message = 'Passwords do not match.';
-      return;
-    }
+    this.spinner.show()
+    const { firstname, lastname, email, password, roles } = this.signupForm.value;
 
-    try {
-      const existingUser = await user.getUser(this.email);
-      if (existingUser) {
-        this.message = 'This email is already registered.';
-        return;
-      }
+    const requestBody = {
+      firstname,
+      lastname,
+      email,
+      password,
+      roles: [roles] // Now it can be 'MERCHANT' or 'DRIVER'
+    };
 
-      const newUser: User = {
-        username: this.email,
-        password: this.password,
-        phoneNumber: this.phoneNumber,
-        address: this.address
-      };
-
-      await user.addUser(newUser);
-      this.message = 'Registration successful!';
-
-      // Optionally, reset form
-      this.email = '';
-      this.password = '';
-      this.re_password = '';
-      this.phoneNumber = '';
-      this.address = '';
+    this.Auth.register(requestBody).then((res)=>{
+      this.spinner.hide()
+      this.glovar.showMsg('Registration successful!')
+      this.signupForm.reset();
       this.router.navigate(['/SignIn']);
-    } catch (error: any) {
-      this.message = error.message || 'An error occurred during registration.';
-    }
+    }).catch((err)=>{
+      if(err.status === 200){
+        this.spinner.hide()
+        this.glovar.showMsg('Registration successful!')
+        this.signupForm.reset();
+        this.router.navigate(['/SignIn']);
+      }
+      this.spinner.hide()
+      this.message = err.message || 'An error occurred during registration.';
+    })
   }
+
 }

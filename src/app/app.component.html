@@ -1,5 +1,6 @@
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
 <div class="main-container">
-  <app-navbar></app-navbar>
+  <app-navbar *ngIf="!isAdminRoute"></app-navbar>
   <div class="toastClassName toast-notification toast-show" *ngIf="isShow">
     <div class="toast-content">
       <div class="alert-icon"></div>

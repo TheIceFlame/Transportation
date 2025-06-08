@@ -1,0 +1,118 @@
+<div class="request-container">
+  <!-- Header -->
+  <div class="header-section">
+    <div class="header-content">
+      <h2 class="page-title">Vehicle Management</h2>
+      <div class="filter-group">
+        <button type="submit" class="filter-button" [routerLink]="'/admin/vehicles/new'">
+          New Vehicle
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <form class="filter-form"  (click)="Drivers(0)">
+      <!-- Operating Cities -->
+      <div class="filter-group">
+        <label for="operatingCities" class="filter-label">Refregiration</label>
+        <select id="operatingCities" name="operatingCities" class="filter-select" [(ngModel)]="filters.refregiration">
+          <option value="">All Options</option>
+          <option [value]="true" >Yes</option>
+          <option [value]="false">No</option>
+        </select>
+      </div>
+
+      <!-- Date Filter -->
+      <div class="filter-group">
+        <label for="type" class="filter-label">Type</label>
+        <select id="type" name="operatingCities" class="filter-select" [(ngModel)]="filters.vehicle_type">
+          <option value="">All types</option>
+          <option value="CAR">Car</option>
+          <option value="VAN">Van</option>
+          <option value="TRUCK">Truck</option>
+        </select>
+      </div>
+
+
+      <!-- Filter Button -->
+      <div class="filter-group">
+        <button type="submit" class="filter-button">
+          <span class="filter-icon">🔍</span>
+          Apply Filters
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Content Area -->
+  <div class="content-area">
+    <div class="content-wrapper">
+      <div class="flex flex-col gap-8 t0">
+
+        <!-- Standard HTML Table -->
+        <div class="table-container">
+          <div class="table-content">
+            <table class="professional-table">
+              <thead>
+              <tr>
+                <th>Vehicle Name</th>
+                <th>License Plate</th>
+                <th>Registration Expiration</th>
+                <th>Registration State</th>
+                <th>VIN</th>
+                <th>Year</th>
+                <th>Model</th>
+                <th>Refrigeration</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+
+
+              </thead>
+              <tbody>
+              <tr *ngFor="let element of paginatedDriver.driver">
+                <td>{{ element.name }}</td>
+                <td>{{ element.licensePlate }}</td>
+                <td>{{ element.registrationExpirationMonth }}</td>
+                <td>{{ element.registrationState }}</td>
+                <td>{{ element.vin }}</td>
+                <td>{{ element.year }}</td>
+                <td>{{ element.model }}</td>
+                <td>{{ element.hasRefrigeration ? 'Yes' : 'No' }}</td>
+                <td>{{ element.vehicleType }}</td>
+                <td>
+        <span class="status-badge"
+              [class.status-completed]="element.vehicleStatus === 'AVAILABLE'"
+              [class.status-pending]="element.vehicleStatus !== 'AVAILABLE'">
+          {{ element.vehicleStatus }}
+        </span>
+                </td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn btn-edit" (click)="change(element.id)">Change Status</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- No Data Row -->
+              <tr *ngIf="paginatedDriver.driver.length === 0">
+                <td colspan="9">
+                  <div class="no-data-content">
+                    <span class="no-data-icon">📭</span>
+                    <h4>No records found</h4>
+                    <p>There are no items to display at this time.</p>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,96 +2,85 @@
   <div class="bb-stack bb-stack--wrap vh-100">
     <div class="login-card">
 
-      <div id="kc-header" class="d-none">
-        <div id="kc-header-wrapper" class="">
-        </div>
-      </div>
+      <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
 
-      <div class="card-body mx-4 pad-custom  center-card">
-        <div class="brand">
-        </div>
-        <header class="">
-          <h1 id="kc-page-title" class=" login-choose-method-h1"></h1>
-        </header>
-        <div id="kc-content">
-          <div id="kc-content-wrapper">
-            <div class="bb-subtitle bb-block bb-block--lg">
-            </div>
-            <div id="kc-header-wrapper" class="">
-              <h1>Welcome to Transportation Website</h1>
-              <p>Fill the form below to register as new user</p>
-            </div>
-
-
-            <div id="kc-form">
-              <div id="kc-form-wrapper">
-
-                <form id="kc-form-register" class="muj-form-register"
-                      action="#"
-                      method="post" autocomplete="off">
-
-                  <div class="form-group bb-form-field bb-form-field--md">
-                    <label class="label-style">Email</label>
-                    <input tabindex="1" id="email" class="form-control" name="email" value=""
-                           placeholder="Enter email" type="email" autocomplete="off" [(ngModel)]="email">
-                  </div>
-
-                  <div class="form-group bb-form-field bb-form-field--md">
-                    <label class="label-style">Phone Number</label>
-                    <input tabindex="3" id="phone" class="form-control" name="phone" value=""
-                           placeholder="Enter phone number" type="tel" autocomplete="off"
-                           [(ngModel)]="phoneNumber">
-                  </div>
-
-                  <div class="form-group bb-form-field bb-form-field--md">
-                    <label class="label-style">Address</label>
-                    <input tabindex="4" id="address" class="form-control" name="address" value=""
-                           placeholder="Enter address" type="text" autocomplete="off"
-                           [(ngModel)]="address">
-                  </div>
-
-                  <div class="form-group bb-form-field bb-form-field--md">
-                    <label class="label-style">Password</label>
-                    <input tabindex="2" id="password" class="form-control" name="password" [type]="toggle_vue?'text':'password'"
-                           autocomplete="off" placeholder="Enter password"
-                           [(ngModel)]="password">
-                    <img class="icon-eye" id="eye"
-                         src="https://authcorporate.mybiat.tn/auth/resources/15.0.2.0-cr.13.3/login/biat-corporate-muj/img/eye.svg"
-                         (click)="togglePassword()">
-                  </div>
-
-                  <div class="form-group bb-form-field bb-form-field--md">
-                    <label class="label-style">Re-Password</label>
-                    <input tabindex="2" id="re-password" class="form-control" name="re-password" [type]="toggle_vue_2?'text':'password'"
-                           autocomplete="off" placeholder="Enter password"
-                           [(ngModel)]="re_password">
-                    <img class="icon-eye" id="eye"
-                         src="https://authcorporate.mybiat.tn/auth/resources/15.0.2.0-cr.13.3/login/biat-corporate-muj/img/eye.svg"
-                         (click)="togglePassword2()">
-                  </div>
-
-                  <div class="form-group bb-form-field bb-form-field--md bb-block bb-block--xl m-0">
-                    <div id="kc-form-buttons" class="bb-button-bar bb-button-bar--reverse login-bar">
-                      <button (click)="register()" tabindex="5" class="bb-button-bar__button btn login-button" name="register" id="kc-register"
-                              type="submit" value="Register">
-                        <div id="msg"> Register</div>
-                      </button>
-                    </div>
-                  </div>
-
-                </form>
-              </div>
-            </div>
-
-            <div id="kc-info" class="">
-              <div id="kc-info-wrapper" class="">
-              </div>
-            </div>
+        <div class="form-group">
+          <label class="form-label">Register as</label>
+          <div class="role-options">
+            <label class="role-option">
+              <input type="radio" formControlName="roles" value="MERCHANT"> Merchant
+            </label>
+            <label class="role-option">
+              <input type="radio" formControlName="roles" value="DRIVER"> Driver
+            </label>
           </div>
         </div>
-      </div>
 
+
+        <div class="form-group">
+          <label class="form-label" for="firstName">First Name</label>
+          <input
+            type="text"
+            id="firstname"
+            class="form-control"
+            formControlName="firstname"
+            placeholder="Enter your first name"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="lastName">Last Name</label>
+          <input
+            type="text"
+            id="lastname"
+            class="form-control"
+            formControlName="lastname"
+            placeholder="Enter your last name"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="Enter your email"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <div class="password-wrapper">
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              formControlName="password"
+              placeholder="Create a password"
+              required
+            >
+            <button type="button" class="password-toggle" id="passwordToggle">
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="login-button" id="signupBtn">
+          <div class="loading-spinner" id="loadingSpinner"></div>
+          <div class="success-checkmark" id="successCheck"></div>
+          <span id="buttonText">Sign Up</span>
+        </button>
+      </form>
+
+      <div class="register-link">
+        <p class="register-text">Already have an account?</p>
+        <a [routerLink]="'/SignIn'">Sign In</a>
+      </div>
     </div>
   </div>
-
 </div>

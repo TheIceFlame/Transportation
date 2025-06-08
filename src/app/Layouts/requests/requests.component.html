@@ -4,7 +4,7 @@
     <h1>My Requests</h1>
   </div>
   <div class="column">
-    <app-add-request-card [routerLink]="'/Request/New'"></app-add-request-card>
-    <app-request-card *ngFor="let request of savedRequests" [request]="request"></app-request-card>
+    <app-add-request-card [length]="PaginatedOrders.Orders.length" [routerLink]="'/Request/New'"></app-add-request-card>
+    <app-request-card *ngFor="let request of PaginatedOrders.Orders" [item]="request" (deleteRequest)="delete($event)"></app-request-card>
   </div>
 </div>

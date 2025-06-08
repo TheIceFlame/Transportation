@@ -1,0 +1,120 @@
+<div class="request-container">
+  <!-- Header -->
+  <div class="header-section">
+    <div class="header-content">
+      <h2 class="page-title">Drivers Management</h2>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <form class="filter-form"  (click)="Drivers(0)">
+      <!-- Operating Cities -->
+      <div class="filter-group">
+        <label for="operatingCities" class="filter-label">Operating City</label>
+        <select id="operatingCities" name="operatingCities" class="filter-select" [(ngModel)]="filters.country">
+          <option value="">All Cities</option>
+          <option value="Tunis">Tunis</option>
+          <option value="Sousse">Sousse</option>
+          <option value="Sfax">Sfax</option>
+        </select>
+      </div>
+
+      <!-- Date Filter -->
+      <div class="filter-group">
+        <label for="date" class="filter-label">Date</label>
+        <input type="date" id="date" name="date" class="filter-input" [(ngModel)]="filters.date">
+      </div>
+
+      <!-- License Number -->
+      <div class="filter-group">
+        <label for="licenseNumber" class="filter-label">License Number</label>
+        <input type="text" id="licenseNumber" name="licenseNumber" placeholder="Enter license number" class="filter-input" [(ngModel)]="filters.licenseNumber">
+      </div>
+
+      <!-- License Class -->
+      <div class="filter-group">
+        <label for="licenseClass" class="filter-label">License Class</label>
+        <input type="text" id="licenseClass" name="licenseClass" placeholder="Enter license class" class="filter-input" [(ngModel)]="filters.licenseClass">
+      </div>
+
+      <!-- Country -->
+      <div class="filter-group">
+        <label for="country" class="filter-label">Country</label>
+        <input type="text" id="country" name="country" placeholder="Enter country" class="filter-input">
+      </div>
+
+      <!-- Filter Button -->
+      <div class="filter-group">
+        <button type="submit" class="filter-button">
+          <span class="filter-icon">🔍</span>
+          Apply Filters
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Content Area -->
+  <div class="content-area">
+    <div class="content-wrapper">
+      <div class="flex flex-col gap-8 t0">
+
+        <!-- Standard HTML Table -->
+        <div class="table-container">
+          <div class="table-content">
+            <table class="professional-table">
+              <thead>
+              <tr>
+                <th>User ID</th>
+                <th>License Number</th>
+                <th>License Expiration</th>
+                <th>License Class</th>
+                <th>Country</th>
+                <th>Operating Cities</th>
+                <th>Driver Status</th>
+                <th>Actions</th>
+              </tr>
+
+
+              </thead>
+              <tbody>
+              <tr *ngFor="let element of paginatedDriver.driver">
+                <td>{{ element.userId }}</td>
+                <td>{{ element.licenseNumber }}</td>
+                <td>{{ element.licenseExpiration }}</td>
+                <td>{{ element.licenseClass }}</td>
+                <td>{{ element.country }}</td>
+                <td>{{ element.operatingCities }}</td>
+                <td><span class="status-badge" [class.status-completed]="element.driverStatus === 'AVAILABLE'" [class.status-pending]="element.driverStatus === 'ASSIGNED'">{{ element.driverStatus | string }}</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <div class="action-buttons">
+
+                      <button class="btn btn-edit" (click)="change(element.id)">change status</button>
+                      <button class="btn btn-view" (click)="assign(element.id)" *ngIf="element.driverStatus === 'AVAILABLE'">Assign Car to Driver</button>
+<!--                      <button class="btn btn-delete" (click)="delete(element.id)">🗑️ Delete</button>-->
+<!--                      <button class="btn btn-delete" (click)="delete_orders(element.id)">❌ Cancel</button>-->
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- No Data Row -->
+              <tr *ngIf="paginatedDriver.driver.length === 0">
+                <td colspan="9">
+                  <div class="no-data-content">
+                    <span class="no-data-icon">📭</span>
+                    <h4>No records found</h4>
+                    <p>There are no items to display at this time.</p>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

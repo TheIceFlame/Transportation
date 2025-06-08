@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-request-card',
@@ -6,6 +6,10 @@ import {Component, Input} from '@angular/core';
   styleUrl: './request-card.component.scss'
 })
 export class RequestCardComponent {
+  @Input() item: any;
+  @Output() deleteRequest = new EventEmitter<number>(); // send back the ID
 
-  @Input() request: any;
+  onDelete() {
+    this.deleteRequest.emit(this.item.id);
+  }
 }

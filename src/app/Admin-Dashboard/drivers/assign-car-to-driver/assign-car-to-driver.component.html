@@ -1,0 +1,251 @@
+<!--<div class="assign-car-container">-->
+<!--  <h2>Assign Car to Driver</h2>-->
+
+<!--  &lt;!&ndash; Filters Section &ndash;&gt;-->
+<!--  <div class="filters-section">-->
+<!--    <h3>Filters</h3>-->
+<!--    <div class="filter-row">-->
+<!--      <div class="form-group">-->
+<!--        <label for="refrigeration">Refrigeration:</label>-->
+<!--        <input-->
+<!--          id="refrigeration"-->
+<!--          type="text"-->
+<!--          [(ngModel)]="filters.refregiration"-->
+<!--          (input)="onFilterChange()"-->
+<!--          class="form-control"-->
+<!--          placeholder="Enter refrigeration type">-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="vehicleType">Vehicle Type:</label>-->
+<!--        <input-->
+<!--          id="vehicleType"-->
+<!--          type="text"-->
+<!--          [(ngModel)]="filters.vehicle_type"-->
+<!--          (input)="onFilterChange()"-->
+<!--          class="form-control"-->
+<!--          placeholder="Enter vehicle type">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Cars List Section &ndash;&gt;-->
+<!--  <div class="cars-section">-->
+<!--    <h3>Available Cars</h3>-->
+
+<!--    <div class="cars-grid" *ngIf="cars.length > 0">-->
+<!--      <div-->
+<!--        class="car-card"-->
+<!--        *ngFor="let car of cars"-->
+<!--        [class.selected]="selectedCar?.id === car.id"-->
+<!--        (click)="selectCar(car)">-->
+
+<!--        <div class="car-info">-->
+<!--          <h4>{{ car.make }} {{ car.model }}</h4>-->
+<!--          <p><strong>ID:</strong> {{ car.id }}</p>-->
+<!--          <p><strong>License Plate:</strong> {{ car.licensePlate }}</p>-->
+<!--          <p><strong>Year:</strong> {{ car.year }}</p>-->
+<!--          <p *ngIf="car.vehicleType"><strong>Type:</strong> {{ car.vehicleType }}</p>-->
+<!--          <p *ngIf="car.refrigeration"><strong>Refrigeration:</strong> {{ car.refrigeration }}</p>-->
+<!--        </div>-->
+
+<!--        <div class="selection-indicator" *ngIf="selectedCar?.id === car.id">-->
+<!--          ✓ Selected-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="no-cars" *ngIf="cars.length === 0">-->
+<!--      <p>No cars available with current filters</p>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Assignment Form Section &ndash;&gt;-->
+<!--  <div class="assignment-section" *ngIf="selectedCar">-->
+<!--    <h3>Assignment Details</h3>-->
+
+<!--    <div class="selected-car-info">-->
+<!--      <h4>Selected Car: {{ selectedCar.make }} {{ selectedCar.model }}</h4>-->
+<!--      <p>License Plate: {{ selectedCar.licensePlate }}</p>-->
+<!--    </div>-->
+
+<!--    <div class="form-row">-->
+<!--      <div class="form-group">-->
+<!--        <label for="startDate">Start Date:</label>-->
+<!--        <input-->
+<!--          id="startDate"-->
+<!--          type="date"-->
+<!--          [(ngModel)]="startDate"-->
+<!--          class="form-control"-->
+<!--          required>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="endDate">End Date:</label>-->
+<!--        <input-->
+<!--          id="endDate"-->
+<!--          type="date"-->
+<!--          [(ngModel)]="endDate"-->
+<!--          class="form-control"-->
+<!--          required>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="driver-info">-->
+<!--      <p><strong>Driver ID:</strong> {{ driverId }}</p>-->
+<!--    </div>-->
+
+<!--    <div class="action-buttons">-->
+<!--      <button-->
+<!--        class="btn btn-primary"-->
+<!--        (click)="assignCarToDriver()"-->
+<!--        [disabled]="!startDate || !endDate">-->
+<!--        Assign Car to Driver-->
+<!--      </button>-->
+
+<!--      <button-->
+<!--        class="btn btn-secondary"-->
+<!--        (click)="resetForm()">-->
+<!--        Cancel-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Pagination &ndash;&gt;-->
+<!--  <div class="pagination-section">-->
+<!--    <button-->
+<!--      class="btn btn-outline-primary"-->
+<!--      (click)="loadCars(currentPage - 1)"-->
+<!--      [disabled]="currentPage <= 1">-->
+<!--      Previous-->
+<!--    </button>-->
+
+<!--    <span class="page-info">Page {{ currentPage }}</span>-->
+
+<!--    <button-->
+<!--      class="btn btn-outline-primary"-->
+<!--      (click)="loadCars(currentPage + 1)">-->
+<!--      Next-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</div>-->
+<div class="assign-car-container">
+
+  <div class="content-wrapper">
+    <!-- Filters Section -->
+    <div class="filters-section">
+      <h3 class="section-title">🔍 Filters</h3>
+      <div class="filter-row">
+        <div class="form-group">
+          <label for="refrigeration">Refrigeration:</label>
+          <input
+            id="refrigeration"
+            type="text"
+            [(ngModel)]="filters.refregiration"
+            (input)="onFilterChange()"
+            class="form-control"
+            placeholder="Enter refrigeration type"
+            value="">
+        </div>
+
+        <div class="form-group">
+          <label for="vehicleType">Vehicle Type:</label>
+          <input
+            id="vehicleType"
+            [(ngModel)]="filters.vehicle_type"
+            (input)="onFilterChange()"
+            type="text"
+            class="form-control"
+            placeholder="Enter vehicle type"
+            value="">
+        </div>
+      </div>
+    </div>
+
+    <!-- Cars List Section -->
+    <div class="cars-section">
+      <h3 class="section-title">🚙 Available Cars</h3>
+
+      <div class="cars-grid"  *ngIf="cars.length > 0"    >
+        <!-- Sample Car Cards -->
+        <div class="car-card" *ngFor="let car of cars"
+             [class.selected]="selectedCar?.id === car.id"
+             (click)="selectCar(car)">
+          <div class="car-info">
+            <h4>{{ car.make }} {{ car.model }}</h4>
+            <p><strong>ID:</strong> {{ car.id }}</p>
+            <p><strong>License Plate:</strong> {{ car.licensePlate }}</p>
+            <p><strong>Year:</strong> {{ car.year }}</p>
+            <p *ngIf="car.vehicleType"><strong>Type:</strong> {{ car.vehicleType }}</p>
+            <p *ngIf="car.refrigeration"><strong>Refrigeration:</strong> {{ car.refrigeration }}</p>
+          </div>
+          <div class="selection-indicator" *ngIf="selectedCar?.id === car.id">
+            ✓ Selected
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assignment Form Section -->
+    <div class="assignment-section" *ngIf="selectedCar">
+      <h3 class="section-title">📋 Assignment Details</h3>
+
+      <div class="selected-car-info">
+        <h4>Selected Car: {{ selectedCar.make }} {{ selectedCar.model }}</h4>
+        <p>License Plate: {{ selectedCar.licensePlate }}</p>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="startDate">Start Date:</label>
+          <input
+            id="startDate"
+            type="date"
+            [(ngModel)]="startDate"
+            class="form-control"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="endDate">End Date:</label>
+          <input
+            id="endDate"
+            type="date"
+            [(ngModel)]="endDate"
+            class="form-control"
+            required>
+        </div>
+      </div>
+
+      <div class="driver-info">
+        <p><strong>👤 Driver ID:</strong> {{ driverId }}</p>
+      </div>
+
+      <div class="action-buttons">
+        <button
+          class="btn btn-primary"
+          (click)="assignCarToDriver()"
+          [disabled]="!startDate || !endDate">
+          Assign Car to Driver
+        </button>
+
+        <button
+          class="btn btn-secondary"
+          (click)="resetForm()">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-section">
+      <button class="btn-outline-primary" disabled>
+        ← Previous
+      </button>
+      <span class="page-info">Page 1</span>
+      <button class="btn-outline-primary">
+        Next →
+      </button>
+    </div>
+  </div>
+</div>
