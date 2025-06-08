@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+::ng-deep .fc {
+  height: 100%;
+}
+::ng-deep .fc-event {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}

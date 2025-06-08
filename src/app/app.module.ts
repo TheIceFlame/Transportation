@@ -31,6 +31,7 @@ import { NewCarComponent } from './Admin-Dashboard/vehicle/new-car/new-car.compo
 import { UpdateCarStatusComponent } from './Admin-Dashboard/vehicle/update-car-status/update-car-status.component';
 import { AssignCarToDriverComponent } from './Admin-Dashboard/drivers/assign-car-to-driver/assign-car-to-driver.component';
 import { SchedulingComponent } from './Admin-Dashboard/scheduling/scheduling.component';
+import {FullCalendarModule} from '@fullcalendar/angular';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { SchedulingComponent } from './Admin-Dashboard/scheduling/scheduling.com
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FullCalendarModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 3000,
